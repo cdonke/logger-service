@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.SignalR;
 using System.Threading;
+using Itau.MX4.Logger.Providers.STLog;
 
 namespace Itau.MX4.Logger.Service
 {
@@ -24,10 +25,12 @@ namespace Itau.MX4.Logger.Service
         {
 
             services.AddControllers();
+            
+
             services.AddLogging(config =>
             {
                 config.AddConfiguration(Configuration.GetSection("Logging"));
-
+                config.AddSTLog();
 #if DEBUG
                 config.AddDebug();
 #endif
