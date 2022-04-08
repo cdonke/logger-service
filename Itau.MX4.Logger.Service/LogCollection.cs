@@ -12,10 +12,10 @@ namespace Itau.MX4.Logger.Service
         private readonly ILogger<LogCollection> _logger;
         private readonly BlockingCollection<Models.LogEntity> _blockingCollection;
 
-        public LogCollection (ILogger<LogCollection> logger)
+        public LogCollection(ILogger<LogCollection> logger)
         {
             _logger = logger;
-            
+
             _blockingCollection = new BlockingCollection<Models.LogEntity>();
 
             Initialize();
@@ -37,7 +37,7 @@ namespace Itau.MX4.Logger.Service
                     if (message != null)
                     {
                         var json = JsonSerializer.Serialize(message);
-                        _logger.Log(message.Level, json );
+                        _logger.Log(message.Level, json);
                     }
                 }
             });

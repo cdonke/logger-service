@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.SignalR;
 using System.Threading;
 using Itau.MX4.Logger.Providers.STLog;
+using System.Text.Json.Serialization;
 
 namespace Itau.MX4.Logger.Service
 {
@@ -24,7 +25,10 @@ namespace Itau.MX4.Logger.Service
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(o => o
+                    .JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
+                );
             
 
             services.AddLogging(config =>

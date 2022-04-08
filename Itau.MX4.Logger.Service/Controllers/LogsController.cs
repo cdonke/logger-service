@@ -12,22 +12,33 @@ namespace Itau.MX4.Logger.Service.Controllers
     [Route("api/[controller]")]
     public class LogsController : Controller
     {
-        private readonly LogCollection _observable;
+        private readonly LogCollection _logCollection;
 
-        public LogsController(LogCollection observable, ILogger<LogsController> logger)
+        public LogsController(LogCollection logCollection, ILogger<LogsController> logger)
         {
-            _observable = observable;
+            _logCollection = logCollection;
         }
 
+        [HttpPost("StartService/{servico}")]
+        public void StartService([FromRoute] string servico, [FromBody] Models.LogEntity logEntity)
+        {
+            logEntity.ApplicationName = servico;
+            _logCollection.Enqueue(logEntity);
+        }
+        [HttpPost("StopService/{servico}")]
+        public void StopService([FromRoute] string servico, [FromBody] Models.LogEntity logEntity)
+        {
+            logEntity.ApplicationName = servico;
+            _logCollection.Enqueue(logEntity);
+        }
 
-        // POST api/values
         [HttpPost("{servico}/{logLevel}")]
-        public void Post([FromRoute]string servico, [FromRoute]LogLevel logLevel, [FromBody]Models.LogEntity logEntity)
+        public void Log([FromRoute]string servico, [FromRoute]LogLevel logLevel, [FromBody]Models.LogEntity logEntity)
         {
             logEntity.ApplicationName = servico;
             logEntity.Level = logLevel;
 
-            _observable.Enqueue(logEntity);
+            _logCollection.Enqueue(logEntity);
         }
     }
 }

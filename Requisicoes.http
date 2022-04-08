@@ -1,0 +1,29 @@
+@robo=meu.robo.capture
+@url=http://localhost:5000/api/logs
+
+
+POST {{url}}/StartService/{{robo}}
+Content-Type: application/json
+
+{
+  "Acao": "StartService",
+  "Date": "2022-04-08T15:14:00"
+}
+###
+
+POST {{url}}/StopService/{{robo}}
+Content-Type: application/json
+
+{
+  "Acao": "StartService",
+  "Date": "2022-04-08T15:14:00"
+}
+###
+
+POST {{url}}/{{robo}}/Information
+Content-Type: application/json
+
+{
+  "Message": "teste",
+  "Date": "2022-04-08T15:14:00"
+}

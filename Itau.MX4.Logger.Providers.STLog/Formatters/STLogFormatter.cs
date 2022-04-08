@@ -29,10 +29,34 @@ namespace Itau.MX4.Logger.Providers.STLog.Formatters
             }
 
             result.Aplicacao = logEntity.ApplicationName;
-            result.Mensagem = $"{logEntity.Ambiente.ServerName} {DateTime.Now:dd/MM/yyyy HH:mm:ss}  {formataNomeAplicacao(logEntity.ApplicationName)} {validaCodigo(logEntity.Level)}{tipoLog(logEntity.Level)}-{logEntity.Message}";
+
+            switch (logEntity.Acao)
+            {
+                case Service.Models.Enum.Acao.Log:
+                    result.Mensagem = MontarLog(logEntity);
+                    break;
+
+                case Service.Models.Enum.Acao.StartService:
+                    result.Mensagem = MontarStartService(logEntity);
+                    break;
+                    
+                case Service.Models.Enum.Acao.EndService:
+                    result.Mensagem = MontarStopService(logEntity);
+                    break;
+            }
+                     
 
             return result;
         }
+
+        private string MontarStopService(LogEntity logEntity) 
+            => $"{logEntity.Ambiente.ServerName} {DateTime.Now:dd/MM/yyyy HH:mm:ss}  {formataNomeAplicacao(logEntity.ApplicationName)} 031I-Parando Servico";
+
+        private string MontarStartService(LogEntity logEntity) 
+            => $"{logEntity.Ambiente.ServerName} {DateTime.Now:dd/MM/yyyy HH:mm:ss}  {formataNomeAplicacao(logEntity.ApplicationName)} 031I-Iniciando Servico";
+
+        private string MontarLog(LogEntity logEntity) 
+            => $"{logEntity.Ambiente.ServerName} {DateTime.Now:dd/MM/yyyy HH:mm:ss}  {formataNomeAplicacao(logEntity.ApplicationName)} {validaCodigo(logEntity.Level)}{tipoLog(logEntity.Level)}-{logEntity.Message}";
 
         private string formataNomeAplicacao(string nomeAplicacao)
             => _nomeAplicacao.GetOrAdd(nomeAplicacao.ToLower(), (n) => _cultura.TextInfo.ToTitleCase(nomeAplicacao));
