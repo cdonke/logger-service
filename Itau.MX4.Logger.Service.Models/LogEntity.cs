@@ -23,9 +23,9 @@ namespace Itau.MX4.Logger.Service.Models
 
 
 
-        public From From { get; set; }
-        public Ambiente Ambiente { get; set; }
-        public Excecao Excecao { get; set; }
+        public From From { get; set; } = new From();
+        public Ambiente Ambiente { get; set; } = new Ambiente();
+        public Excecao Excecao { get; set; } = new Excecao();
 
 
 

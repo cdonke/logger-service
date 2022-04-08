@@ -7,9 +7,9 @@ namespace Itau.MX4.Logger.Providers.STLog.FileWriter
     {
         public static event LogEntityHandler LogEntityEnqueued;
 
-        public void Postar(string mensagem)
+        public void Postar(MessageEntity mensagem)
         {
-            OnLogEntityQueued(new LogEntityEvent(mensagem));
+            OnLogEntityQueued(new LogEntityEvent(mensagem.Mensagem, mensagem.Aplicacao));
         }
 
         private void OnLogEntityQueued(LogEntityEvent logEntityEvent)

@@ -1,9 +1,9 @@
 ﻿using System;
 namespace Itau.MX4.Logger.Providers.STLog
 {
-    internal class STLogOptions
+    public class STLogOptions
     {
-        public string Logs { get; set; }
-        public string LogsHist { get; set; }
+        public virtual string Logs { get; set; }
+        public virtual string LogsHist { get; set; }
     }
 }

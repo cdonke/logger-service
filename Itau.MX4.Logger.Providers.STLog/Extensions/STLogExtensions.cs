@@ -16,10 +16,12 @@ namespace Itau.MX4.Logger.Providers.STLog
             builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<Interfaces.ILoggerFormatter, Formatters.STLogFormatter>());
             builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<Interfaces.IPublisher, FileWriter.Publisher>());
 
+            builder.Services.AddHostedService<Workers.FileWriterWorker>();
+
             builder.Services.AddSingleton<FileWriter.LogsHistSubscriber>();
             builder.Services.AddSingleton<FileWriter.LogsSubscriber>();
          
-            LoggerProviderOptions.RegisterProviderOptions<STLogOptions, STLogOptions>(builder.Services);
+            LoggerProviderOptions.RegisterProviderOptions<STLogOptions, STLogProvider>(builder.Services);
 
 
             builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, STLogProvider>());

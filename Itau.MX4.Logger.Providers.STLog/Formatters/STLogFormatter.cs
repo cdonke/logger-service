@@ -1,26 +1,42 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Text;
 using System.Text.Json;
+using Itau.MX4.Logger.Providers.STLog.Interfaces;
 using Itau.MX4.Logger.Service.Models;
 using Microsoft.Extensions.Logging;
 
 namespace Itau.MX4.Logger.Providers.STLog.Formatters
 {
-    internal class STLogFormatter :Interfaces.ILoggerFormatter
+    internal class STLogFormatter : Interfaces.ILoggerFormatter
     {
-        public string FormatText<TState>(TState state, Exception exception)
+        private readonly static ConcurrentDictionary<string, string> _nomeAplicacao = new ConcurrentDictionary<string, string>();
+        private readonly static CultureInfo _cultura = new System.Globalization.CultureInfo("pt-BR");
+
+        public MessageEntity FormatText<TState>(TState state, Exception exception)
         {
+            LogEntity logEntity = null;
+            MessageEntity result = new MessageEntity();
             try
             {
-                var logEntity = JsonSerializer.Deserialize<LogEntity>(state.ToString());
-                var mensagem = $"{logEntity.Ambiente.ServerName} {DateTime.Now:dd/MM/yyyy HH:mm:ss}  {logEntity.ApplicationName} {validaCodigo(logEntity.Level)}{tipoLog(logEntity.Level)}-{logEntity.Message}";
-
-                return mensagem;
+                logEntity = JsonSerializer.Deserialize<LogEntity>(state.ToString());
             }
             catch (JsonException)
             {
-                return string.Empty;
+                return result;
             }
+
+            result.Aplicacao = logEntity.ApplicationName;
+            result.Mensagem = $"{logEntity.Ambiente.ServerName} {DateTime.Now:dd/MM/yyyy HH:mm:ss}  {formataNomeAplicacao(logEntity.ApplicationName)} {validaCodigo(logEntity.Level)}{tipoLog(logEntity.Level)}-{logEntity.Message}";
+
+            return result;
         }
+
+        private string formataNomeAplicacao(string nomeAplicacao)
+            => _nomeAplicacao.GetOrAdd(nomeAplicacao.ToLower(), (n) => _cultura.TextInfo.ToTitleCase(nomeAplicacao));
+
 
         private string tipoLog(LogLevel level)
         {
@@ -43,7 +59,6 @@ namespace Itau.MX4.Logger.Providers.STLog.Formatters
                     return "I";
             }
         }
-
         private string validaCodigo(LogLevel level)
         {
             switch (level)
@@ -73,38 +88,3 @@ namespace Itau.MX4.Logger.Providers.STLog.Formatters
         }
     }
 }
-
-/*
- case LevelType.FatalError:
-                    ((ClsBatch)stlog).GravarLog("998", ClsBatch.enum_TipoLogBatch.tipoLog_erro, log.ErrorMessage);
-                    break;
-                case LevelType.Error:
-                    ((ClsBatch)stlog).GravarLog("900", ClsBatch.enum_TipoLogBatch.tipoLog_erro, log.ErrorMessage);
-                    break;
-                case LevelType.Warning:
-                    ((ClsBatch)stlog).GravarLog("401", ClsBatch.enum_TipoLogBatch.tipoLog_aviso, log.Message);
-                    break;
-                case LevelType.Info:
-                    ((ClsBatch)stlog).GravarLog("001", ClsBatch.enum_TipoLogBatch.tipoLog_info, log.Message);
-                    break;
-                case LevelType.Trace:
-                    ((ClsBatch)stlog).GravarLog("002", ClsBatch.enum_TipoLogBatch.tipoLog_info, log.Message);
-                    break;
-                case LevelType.Verbose:
-                    ((ClsBatch)stlog).GravarLog("003", ClsBatch.enum_TipoLogBatch.tipoLog_info, log.Message);
-                    break;
-                case LevelType.StartService:
-                    ((ClsBatch)stlog).IniciarLog(null, log.ApplicationName);
-                    isinitialize = true;
-                    break;
-                case LevelType.StopService:
-                    ((ClsBatch)stlog).FinalizarLog(ClsBatch.enum_TipoFimLogBatch.tipoFimLog_normal);
-                    stlog = null;
-                    isinitialize = false;
-                    break;
-                case LevelType.StopServiceWithError:
-                    ((ClsBatch)stlog).FinalizarLog(ClsBatch.enum_TipoFimLogBatch.tipoFimLog_erro);
-                    break;
-                case LevelType.Alive:
-                case LevelType.Security:
- */

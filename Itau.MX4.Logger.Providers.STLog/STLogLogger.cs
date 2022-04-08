@@ -28,14 +28,12 @@ namespace Itau.MX4.Logger.Providers.STLog
             if (!IsEnabled(logLevel))
                 return;
 
+            if (_formatter == null)
+                throw new NullReferenceException($"{_formatter} está nulo");
 
-            var mensagem = string.Empty;
-            if (_formatter != null)
-                mensagem = _formatter.FormatText(state, exception);
-            else
-                mensagem = formatter(state, exception);
+            var mensagem = _formatter.FormatText(state, exception);
 
-            if (!string.IsNullOrWhiteSpace(mensagem))
+            if (!string.IsNullOrWhiteSpace(mensagem.Mensagem))
                 _publisher.Postar(mensagem);
         }
     }
