@@ -8,5 +8,6 @@ namespace Itau.MX4.Logger.Service.Models
     {
         public string Aplicacao { get; set; }
         public string Mensagem { get; set; }
+        public Enums.Acao Acao { get; set; }
     }
 }

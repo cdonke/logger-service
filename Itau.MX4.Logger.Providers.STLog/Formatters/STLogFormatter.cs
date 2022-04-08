@@ -28,19 +28,20 @@ namespace Itau.MX4.Logger.Providers.STLog.Formatters
                 return result;
             }
 
+            result.Acao = logEntity.Acao;
             result.Aplicacao = logEntity.ApplicationName;
 
             switch (logEntity.Acao)
             {
-                case Service.Models.Enum.Acao.Log:
+                case Service.Models.Enums.Acao.Log:
                     result.Mensagem = MontarLog(logEntity);
                     break;
 
-                case Service.Models.Enum.Acao.StartService:
+                case Service.Models.Enums.Acao.StartService:
                     result.Mensagem = MontarStartService(logEntity);
                     break;
                     
-                case Service.Models.Enum.Acao.EndService:
+                case Service.Models.Enums.Acao.EndService:
                     result.Mensagem = MontarStopService(logEntity);
                     break;
             }

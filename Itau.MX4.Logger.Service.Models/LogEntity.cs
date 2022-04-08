@@ -21,7 +21,7 @@ namespace Itau.MX4.Logger.Service.Models
         public string ApplicationName { get; set; }
         public string ModuleName { get; set; }
 
-        public Enum.Acao Acao { get; set; }
+        public Enums.Acao Acao { get; set; }
 
 
         public From From { get; set; } = new From();
