@@ -9,6 +9,7 @@ namespace Itau.MX4.Logger.Providers.Splunk.Providers
     /// <summary>
     /// This class is used to provide a Splunk Socket Tcp logger for each categoryName.
     /// </summary>
+    [ProviderAlias("Splunk")]
     public class SplunkTcpLoggerProvider : ILoggerProvider
     {
         readonly ILoggerFormatter loggerFormatter;

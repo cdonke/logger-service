@@ -14,7 +14,6 @@ namespace Itau.MX4.Logger.Providers.Splunk.Providers
     /// <summary>
     /// Splunk HECB ase provider.
     /// </summary>
-    [ProviderAlias("Splunk")]
     public abstract class SplunkHECBaseProvider : ILoggerProvider
     {
         protected ILogger loggerInstance;

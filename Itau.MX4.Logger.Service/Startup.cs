@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.SignalR;
 using System.Threading;
 using Itau.MX4.Logger.Providers.STLog;
+using Itau.MX4.Logger.Providers.Splunk;
 using System.Text.Json.Serialization;
 
 namespace Itau.MX4.Logger.Service
@@ -35,6 +36,8 @@ namespace Itau.MX4.Logger.Service
             {
                 config.AddConfiguration(Configuration.GetSection("Logging"));
                 config.AddSTLog();
+                config.AddSplunkJsonLogger();
+
 #if DEBUG
                 config.AddDebug();
 #endif

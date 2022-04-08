@@ -14,6 +14,7 @@ namespace Itau.MX4.Logger.Providers.Splunk.Providers
     /// <summary>
     /// This class is used to provide a Splunk HEC Json logger for each categoryName.
     /// </summary>
+    [ProviderAlias("Splunk")]
     public class SplunkHECJsonLoggerProvider : SplunkHECBaseProvider, ILoggerProvider
     {
         readonly BatchManager batchManager;
