@@ -11,7 +11,6 @@ namespace Itau.MX4.Logger.Providers.STLog.FileWriter
 
         protected override void Publisher_LogEntityEnqueued(LogEntityEvent e)
         {
-            throw new NotImplementedException();
         }
     }
 }

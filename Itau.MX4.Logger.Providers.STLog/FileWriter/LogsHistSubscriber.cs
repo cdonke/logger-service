@@ -3,9 +3,9 @@ using Microsoft.Extensions.Options;
 
 namespace Itau.MX4.Logger.Providers.STLog.FileWriter
 {
-    internal class LogsHistSubscriber:SubscriberBase
+    internal class LogsHistSubscriber : SubscriberBase
     {
-        internal LogsHistSubscriber(IOptions<STLogOptions> options):base(options)
+        public LogsHistSubscriber(IOptions<STLogOptions> options) : base(options)
         {
         }
 

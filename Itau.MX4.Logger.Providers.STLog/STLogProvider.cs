@@ -9,14 +9,14 @@ using Microsoft.Extensions.Options;
 namespace Itau.MX4.Logger.Providers.STLog
 {
     [ProviderAlias("STLog")]
-    public class STLogProvider : ILoggerProvider
+    internal class STLogProvider : ILoggerProvider
     {
         public readonly STLogOptions _options;
-        private readonly Publisher _publisher;
-        private readonly STLogFormatter _formatter;
+        private readonly Interfaces.IPublisher _publisher;
+        private readonly Interfaces.ILoggerFormatter _formatter;
         private readonly ConcurrentDictionary<string, ILogger> _loggers;
 
-        public STLogProvider(Formatters.STLogFormatter formatter, FileWriter.Publisher publisher, IOptions<STLogOptions> options)
+        public STLogProvider(Interfaces.ILoggerFormatter formatter, Interfaces.IPublisher publisher, IOptions<STLogOptions> options)
         {
             _options = options.Value;
             _publisher = publisher;

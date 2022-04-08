@@ -3,7 +3,7 @@ using Itau.MX4.Logger.Service.Models;
 
 namespace Itau.MX4.Logger.Providers.STLog.FileWriter
 {
-    public class LogEntityEvent : EventArgs
+    internal class LogEntityEvent : EventArgs
     {
         public LogEntityEvent(string mensagem)
         {

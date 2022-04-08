@@ -9,12 +9,12 @@ using Microsoft.Extensions.Options;
 
 namespace Itau.MX4.Logger.Providers.STLog
 {
-    public class STLogLogger : ILogger
+    internal class STLogLogger : ILogger
     {
-        private readonly Publisher _publisher;
-        private readonly STLogFormatter _formatter;
+        private readonly Interfaces.IPublisher _publisher;
+        private readonly Interfaces.ILoggerFormatter _formatter;
 
-        public STLogLogger(Formatters.STLogFormatter formatter, FileWriter.Publisher publisher)
+        internal STLogLogger(Interfaces.ILoggerFormatter formatter, Interfaces.IPublisher publisher)
         {
             _publisher = publisher;
             _formatter = formatter;

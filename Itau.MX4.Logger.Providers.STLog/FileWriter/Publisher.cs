@@ -3,7 +3,7 @@ using Itau.MX4.Logger.Service.Models;
 
 namespace Itau.MX4.Logger.Providers.STLog.FileWriter
 {
-    public class Publisher
+    internal class Publisher: Interfaces.IPublisher
     {
         public static event LogEntityHandler LogEntityEnqueued;
 
