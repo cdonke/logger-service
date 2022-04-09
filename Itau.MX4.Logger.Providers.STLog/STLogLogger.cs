@@ -24,18 +24,7 @@ namespace Itau.MX4.Logger.Providers.STLog
         public IDisposable BeginScope<TState>(TState state) => null;
         public bool IsEnabled(LogLevel logLevel)
         {
-            if (!_options.IsEnabled)
-                return false;
-
-            if (!_options.LogLevelMapping.TryGetValue(_categoryName, out LogLevel ll))
-            {
-                if (!_options.LogLevelMapping.TryGetValue("Default", out ll))
-                {
-                    ll = _options.MinLogLevel;
-                }
-            }
-
-            return logLevel >= ll;
+            return _options.IsEnabled;
         }
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)

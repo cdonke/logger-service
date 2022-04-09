@@ -28,7 +28,7 @@ namespace Itau.MX4.Logger.Providers.STLog
 
         public ILogger CreateLogger(string categoryName)
         {
-            return _loggers.GetOrAdd(categoryName, _ => new STLogLogger(_formatter, _publisher));
+            return _loggers.GetOrAdd(categoryName, _ => new STLogLogger(categoryName, _options, _formatter, _publisher));
         }
 
         public void Dispose()
