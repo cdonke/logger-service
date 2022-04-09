@@ -34,5 +34,9 @@ namespace Itau.MX4.Logger.Providers.Splunk.Configurations
         /// </summary>
         public LogLevel MinLogLevel { get; set; } = LogLevel.Information;
 
+        /// <summary>
+        /// If the logger is enabled.
+        /// </summary>
+        public bool IsEnabled { get; set; }
     }
 }

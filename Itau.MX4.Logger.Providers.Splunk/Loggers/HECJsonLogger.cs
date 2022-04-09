@@ -46,6 +46,9 @@ namespace Itau.MX4.Logger.Providers.Splunk.Loggers
             if (_loggingConfiguration == null)
                 return base.IsEnabled(logLevel);
 
+            if (!_loggingConfiguration.IsEnabled)
+                return false;
+
             if (!_loggingConfiguration.LogLevelMapping.TryGetValue(_categoryName, out LogLevel ll))
             {
                 if (!_loggingConfiguration.LogLevelMapping.TryGetValue("Default", out ll))
