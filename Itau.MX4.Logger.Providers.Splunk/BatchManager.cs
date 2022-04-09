@@ -33,6 +33,7 @@ namespace Itau.MX4.Logger.Providers.Splunk
         /// <param name="eventsBag">Event bag</param>
         public BatchManager(uint batchSizeCount, int batchIntervalInMilliseconds, Action<List<object>> emitAction)
         {
+            events = new ConcurrentBag<object>();
             this.batchSizeCount = batchSizeCount;
 
             if (batchIntervalInMilliseconds > 0)

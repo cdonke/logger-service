@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Itau.MX4.Logger.Service.Domain.Models;
 using Microsoft.Extensions.Logging;
 
 namespace Itau.MX4.Logger.Service
@@ -10,13 +11,13 @@ namespace Itau.MX4.Logger.Service
     public class LogCollection
     {
         private readonly ILogger<LogCollection> _logger;
-        private readonly BlockingCollection<Models.LogEntity> _blockingCollection;
+        private readonly BlockingCollection<LogEntity> _blockingCollection;
 
         public LogCollection(ILogger<LogCollection> logger)
         {
             _logger = logger;
 
-            _blockingCollection = new BlockingCollection<Models.LogEntity>();
+            _blockingCollection = new BlockingCollection<LogEntity>();
 
             Initialize();
         }
@@ -27,7 +28,7 @@ namespace Itau.MX4.Logger.Service
             {
                 while (!_blockingCollection.IsCompleted)
                 {
-                    Models.LogEntity message = null;
+                    LogEntity message = null;
                     try
                     {
                         message = _blockingCollection.Take();
@@ -43,7 +44,7 @@ namespace Itau.MX4.Logger.Service
             });
         }
 
-        public void Enqueue(Models.LogEntity message)
+        public void Enqueue(LogEntity message)
         {
             _blockingCollection.Add(message);
         }

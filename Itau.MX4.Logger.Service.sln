@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.810.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Itau.MX4.Logger.Service", "Itau.MX4.Logger.Service\Itau.MX4.Logger.Service.csproj", "{DD5B5AE3-9CF3-4FED-A74D-29729264CDED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Itau.MX4.Logger.Service.Models", "Itau.MX4.Logger.Service.Models\Itau.MX4.Logger.Service.Models.csproj", "{96EABB98-31D7-4BCE-9B3A-E1417E14DE30}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Itau.MX4.Logger.Service.Domain", "Itau.MX4.Logger.Service.Models\Itau.MX4.Logger.Service.Domain.csproj", "{96EABB98-31D7-4BCE-9B3A-E1417E14DE30}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Itau.MX4.Logger.Providers.STLog", "Itau.MX4.Logger.Providers.STLog\Itau.MX4.Logger.Providers.STLog.csproj", "{D4B418A1-54CC-4E80-98D8-FCCA79753CE7}"
 EndProject

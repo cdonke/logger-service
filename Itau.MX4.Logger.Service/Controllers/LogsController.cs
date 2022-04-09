@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Itau.MX4.Logger.Service.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -20,20 +21,20 @@ namespace Itau.MX4.Logger.Service.Controllers
         }
 
         [HttpPost("StartService/{servico}")]
-        public void StartService([FromRoute] string servico, [FromBody] Models.LogEntity logEntity)
+        public void StartService([FromRoute] string servico, [FromBody] LogEntity logEntity)
         {
             logEntity.ApplicationName = servico;
             _logCollection.Enqueue(logEntity);
         }
         [HttpPost("StopService/{servico}")]
-        public void StopService([FromRoute] string servico, [FromBody] Models.LogEntity logEntity)
+        public void StopService([FromRoute] string servico, [FromBody] LogEntity logEntity)
         {
             logEntity.ApplicationName = servico;
             _logCollection.Enqueue(logEntity);
         }
 
         [HttpPost("{servico}/{logLevel}")]
-        public void Log([FromRoute]string servico, [FromRoute]LogLevel logLevel, [FromBody]Models.LogEntity logEntity)
+        public void Log([FromRoute] string servico, [FromRoute] LogLevel logLevel, [FromBody] LogEntity logEntity)
         {
             logEntity.ApplicationName = servico;
             logEntity.Level = logLevel;

@@ -34,12 +34,13 @@ namespace Itau.MX4.Logger.Service
 
             services.AddLogging(config =>
             {
-                config.AddConfiguration(Configuration.GetSection("Logging"));
-                config.AddSTLog();
-                config.AddSplunkJsonLogger();
+                config
+                    //.AddConfiguration(Configuration.GetSection("Logging"))
+                    .AddSTLog()
+                    .AddSplunkJsonLogger()
 
 #if DEBUG
-                config.AddDebug();
+                    .AddDebug();
 #endif
 
                 if (Process.GetCurrentProcess().SessionId != 0)
@@ -50,7 +51,6 @@ namespace Itau.MX4.Logger.Service
 
             services.AddSignalR();
             services.AddSingleton<LogCollection>();
-            services.AddSingleton<CancellationTokenSource>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

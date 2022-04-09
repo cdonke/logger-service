@@ -7,7 +7,7 @@ Content-Type: application/json
 
 {
   "Acao": "StartService",
-  "Date": "2022-04-08T15:14:00"
+  "Date": "{{$datetime iso8601 -3}}"
 }
 ###
 
@@ -16,7 +16,7 @@ Content-Type: application/json
 
 {
   "Acao": "StartService",
-  "Date": "2022-04-08T15:14:00"
+  "Date": "{{$datetime iso8601 -3}}"
 }
 ###
 
@@ -25,5 +25,5 @@ Content-Type: application/json
 
 {
   "Message": "teste",
-  "Date": "2022-04-08T15:14:00"
+  "Date": "{{$datetime iso8601 -3}}"
 }

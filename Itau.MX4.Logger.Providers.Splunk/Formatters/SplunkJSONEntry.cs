@@ -43,15 +43,16 @@
         /// <param name="index">Index entry value.</param>
         public SplunkJSONEntry(string eventText, ulong time = 0, string host = "", string source = "", string sourcetype = "", string index = "")
         {
+
             @event = eventText;
 
             if (time > 0)
                 this.time = time;
 
-            this.host = host;
-            this.source = source;
-            this.sourcetype = sourcetype;
-            this.index = index;
+            this.host = string.IsNullOrWhiteSpace(host) ? null : host;
+            this.source = string.IsNullOrWhiteSpace(source) ? null : source;
+            this.sourcetype = string.IsNullOrWhiteSpace(sourcetype) ? null : sourcetype;
+            this.index = string.IsNullOrWhiteSpace(index) ? null : index;
         }
 
         /// <summary>
