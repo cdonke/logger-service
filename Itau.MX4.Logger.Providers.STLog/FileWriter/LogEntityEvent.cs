@@ -1,4 +1,5 @@
 ﻿using System;
+using Itau.MX4.Logger.Service.Domain.Models;
 using Itau.MX4.Logger.Service.Models;
 
 namespace Itau.MX4.Logger.Providers.STLog.FileWriter
@@ -6,7 +7,7 @@ namespace Itau.MX4.Logger.Providers.STLog.FileWriter
     internal class LogEntityEvent : EventArgs
     {
         public LogEntityEvent(MessageEntity mensagem) : this(mensagem.Acao, mensagem.Mensagem, mensagem.Aplicacao) { }
-        public LogEntityEvent(Service.Models.Enums.Acao acao, string mensagem, string aplicacao)
+        public LogEntityEvent(Service.Models.Domain.Enums.Acao acao, string mensagem, string aplicacao)
         {
             Acao = acao;
             Mensagem = mensagem;
@@ -15,6 +16,6 @@ namespace Itau.MX4.Logger.Providers.STLog.FileWriter
 
         public string Mensagem { get; private set; }
         public string Aplicacao { get; internal set; }
-        public Service.Models.Enums.Acao Acao { get; internal set; }
+        public Service.Models.Domain.Enums.Acao Acao { get; internal set; }
     }
 }

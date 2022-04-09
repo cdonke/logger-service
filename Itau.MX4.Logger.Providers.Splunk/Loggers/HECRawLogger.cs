@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Net.Http;
+using Itau.MX4.Logger.Providers.Splunk.Formatters;
+using Itau.MX4.Logger.Service.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Itau.MX4.Logger.Providers.Splunk.Loggers
@@ -16,7 +18,7 @@ namespace Itau.MX4.Logger.Providers.Splunk.Loggers
         /// <param name="httpClient">Http client.</param>
         /// <param name="batchManager">Batch manager.</param>
         /// <param name="loggerFormatter">Formatter instance.</param>
-        public HECRawLogger(string categoryName, HttpClient httpClient, BatchManager batchManager, ILoggerFormatter loggerFormatter)
+        public HECRawLogger(string categoryName, HttpClient httpClient, BatchManager batchManager, ILoggerFormatter<SplunkJSONEntry> loggerFormatter)
             : base(categoryName, httpClient, batchManager, loggerFormatter)
         {
         }

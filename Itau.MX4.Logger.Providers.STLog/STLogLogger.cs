@@ -1,20 +1,16 @@
 ﻿using System;
-using System.IO;
-using System.Text.Json;
-using Itau.MX4.Logger.Providers.STLog.FileWriter;
-using Itau.MX4.Logger.Providers.STLog.Formatters;
-using Itau.MX4.Logger.Service.Models;
+using Itau.MX4.Logger.Service.Domain.Interfaces;
+using Itau.MX4.Logger.Service.Domain.Models;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Itau.MX4.Logger.Providers.STLog
 {
     internal class STLogLogger : ILogger
     {
         private readonly Interfaces.IPublisher _publisher;
-        private readonly Interfaces.ILoggerFormatter _formatter;
+        private readonly ILoggerFormatter<MessageEntity> _formatter;
 
-        internal STLogLogger(Interfaces.ILoggerFormatter formatter, Interfaces.IPublisher publisher)
+        internal STLogLogger(ILoggerFormatter<MessageEntity> formatter, Interfaces.IPublisher publisher)
         {
             _publisher = publisher;
             _formatter = formatter;
@@ -31,7 +27,7 @@ namespace Itau.MX4.Logger.Providers.STLog
             if (_formatter == null)
                 throw new NullReferenceException($"{_formatter} está nulo");
 
-            var mensagem = _formatter.FormatText(state, exception);
+            var mensagem = _formatter.FormatJson(string.Empty, logLevel,eventId,state,exception);
 
             if (!string.IsNullOrWhiteSpace(mensagem.Mensagem))
                 _publisher.Postar(mensagem);

@@ -6,6 +6,8 @@ using System.Net.Http;
 using Microsoft.Extensions.Logging;
 using Itau.MX4.Logger.Providers.Splunk.Configurations;
 using Itau.MX4.Logger.Providers.Splunk.Loggers;
+using Itau.MX4.Logger.Service.Domain.Interfaces;
+using Itau.MX4.Logger.Providers.Splunk.Formatters;
 
 namespace Itau.MX4.Logger.Providers.Splunk.Providers
 {
@@ -16,7 +18,7 @@ namespace Itau.MX4.Logger.Providers.Splunk.Providers
     public class SplunkHECRawLoggerProvider : SplunkHECBaseProvider, ILoggerProvider
     {
         readonly BatchManager batchManager;
-        readonly ILoggerFormatter loggerFormatter;
+        readonly ILoggerFormatter<SplunkJSONEntry> loggerFormatter;
         readonly ConcurrentDictionary<string, ILogger> loggers;
 
         /// <summary>
@@ -24,7 +26,7 @@ namespace Itau.MX4.Logger.Providers.Splunk.Providers
         /// </summary>
         /// <param name="configuration">Splunk configuration instance for HEC.</param>
         /// <param name="loggerFormatter">Formatter instance.</param>
-        public SplunkHECRawLoggerProvider(SplunkLoggerConfiguration configuration, IDebugger debugger = null, ILoggerFormatter loggerFormatter = null)
+        public SplunkHECRawLoggerProvider(SplunkLoggerConfiguration configuration, IDebugger debugger = null, ILoggerFormatter<SplunkJSONEntry> loggerFormatter = null)
             : base(configuration, "raw", debugger)
         {
             this.loggerFormatter = loggerFormatter;

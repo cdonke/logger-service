@@ -1,4 +1,4 @@
-﻿namespace Itau.MX4.Logger.Service.Models
+﻿namespace Itau.MX4.Logger.Service.Domain.Models
 {
     public class From
     {

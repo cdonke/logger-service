@@ -3,6 +3,8 @@ using Itau.MX4.Logger.Providers.Splunk.Configurations;
 using Itau.MX4.Logger.Providers.Splunk.Loggers;
 using System.Net.Sockets;
 using System.Collections.Concurrent;
+using Itau.MX4.Logger.Service.Domain.Interfaces;
+using Itau.MX4.Logger.Providers.Splunk.Formatters;
 
 namespace Itau.MX4.Logger.Providers.Splunk.Providers
 {
@@ -12,7 +14,7 @@ namespace Itau.MX4.Logger.Providers.Splunk.Providers
     [ProviderAlias("Splunk")]
     public class SplunkUdpLoggerProvider : ILoggerProvider
     {
-        readonly ILoggerFormatter loggerFormatter;
+        readonly ILoggerFormatter<SplunkJSONEntry> loggerFormatter;
         readonly SplunkLoggerConfiguration configuration;
         readonly ConcurrentDictionary<string, ILogger> loggers;
 
@@ -21,7 +23,7 @@ namespace Itau.MX4.Logger.Providers.Splunk.Providers
         /// </summary>
         /// <param name="configuration">Splunk configuration instance for Socket.</param>
         /// <param name="loggerFormatter">Formatter instance.</param>
-        public SplunkUdpLoggerProvider(SplunkLoggerConfiguration configuration, ILoggerFormatter loggerFormatter = null)
+        public SplunkUdpLoggerProvider(SplunkLoggerConfiguration configuration, ILoggerFormatter<SplunkJSONEntry> loggerFormatter = null)
         {
             this.loggerFormatter = loggerFormatter;
             this.configuration = configuration;

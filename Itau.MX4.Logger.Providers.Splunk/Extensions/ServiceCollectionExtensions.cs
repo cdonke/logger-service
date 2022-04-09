@@ -1,6 +1,7 @@
 ﻿using Itau.MX4.Logger.Providers.Splunk.Configurations;
 using Itau.MX4.Logger.Providers.Splunk.Formatters;
 using Itau.MX4.Logger.Providers.Splunk.Providers;
+using Itau.MX4.Logger.Service.Domain.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -21,13 +22,13 @@ namespace Itau.MX4.Logger.Providers.Splunk
         /// <param name="configuration">Seção raíz de onde estará o elemento "Splunk"</param>
         /// <param name="formatter">Formatter customizado</param>
         /// <returns></returns>
-        public static ILoggingBuilder AddSplunkJsonLogger(this ILoggingBuilder builder, ILoggerFormatter formatter = null)
+        public static ILoggingBuilder AddSplunkJsonLogger(this ILoggingBuilder builder, ILoggerFormatter<SplunkJSONEntry> formatter = null)
         {
             ConfigureLogger(builder, formatter);
 
             LoggerProviderOptions.RegisterProviderOptions<SplunkLoggerConfiguration, SplunkHECJsonLoggerProvider>(builder.Services);
-
             builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, SplunkHECJsonLoggerProvider>());
+
             return builder;
         }
 
@@ -39,7 +40,7 @@ namespace Itau.MX4.Logger.Providers.Splunk
         /// <param name="formatter">Formatter customizado</param>
         /// <returns></returns>
         public static ILoggingBuilder AddSplunkRawLogger(this ILoggingBuilder builder, IConfiguration configuration,
-            ILoggerFormatter formatter = null)
+            ILoggerFormatter<SplunkJSONEntry> formatter = null)
         {
             ConfigureLogger(builder, formatter);
 
@@ -56,7 +57,7 @@ namespace Itau.MX4.Logger.Providers.Splunk
         /// <param name="configuration">Seção raíz de onde estará o elemento "Splunk"</param>
         /// <param name="formatter">Formatter customizado</param>
         public static ILoggingBuilder AddTcpSplunkLogger(this ILoggingBuilder builder, IConfiguration configuration,
-            ILoggerFormatter formatter = null)
+            ILoggerFormatter<SplunkJSONEntry> formatter = null)
         {
             ConfigureLogger(builder, formatter);
 
@@ -73,7 +74,7 @@ namespace Itau.MX4.Logger.Providers.Splunk
         /// <param name="configuration">Seção raíz de onde estará o elemento "Splunk"</param>
         /// <param name="formatter">Formatter customizado</param>
         public static ILoggingBuilder AddUdpSplunkLogger(this ILoggingBuilder builder, IConfiguration configuration,
-            ILoggerFormatter formatter = null)
+            ILoggerFormatter<SplunkJSONEntry> formatter = null)
         {
             ConfigureLogger(builder, formatter);
 
@@ -85,14 +86,19 @@ namespace Itau.MX4.Logger.Providers.Splunk
 
 
 
-        private static void ConfigureLogger(ILoggingBuilder builder, ILoggerFormatter formatter)
+        private static void ConfigureLogger(ILoggingBuilder builder, ILoggerFormatter<SplunkJSONEntry> formatter)
         {
             builder.AddConfiguration();
 
+#if DEBUG
+            builder.Services.TryAdd(ServiceDescriptor.Singleton<IDebugger, Debuggers.BasicDebugger>());
+#else
+            builder.Services.TryAdd(ServiceDescriptor.Singleton<IDebugger, Debuggers.NoDebugger>());
+#endif
+
+            builder.Services.TryAdd(ServiceDescriptor.Singleton<ILoggerFormatter<SplunkJSONEntry>, Formatters.LogFormatter>());
             builder.Services.TryAdd(ServiceDescriptor.Singleton<ILoggerFactory, LoggerFactory>());
             builder.Services.TryAdd(ServiceDescriptor.Singleton(typeof(ILogger<>), typeof(Logger<>)));
-
-            builder.Services.TryAdd(ServiceDescriptor.Singleton((sp) => formatter ?? new JsonLoggerFormatter()));
 
         }
     }

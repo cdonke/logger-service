@@ -5,17 +5,29 @@ using System.Globalization;
 using System.Text;
 using System.Text.Json;
 using Itau.MX4.Logger.Providers.STLog.Interfaces;
-using Itau.MX4.Logger.Service.Models;
+using Itau.MX4.Logger.Service.Domain.Interfaces;
+using Itau.MX4.Logger.Service.Domain.Models;
 using Microsoft.Extensions.Logging;
 
 namespace Itau.MX4.Logger.Providers.STLog.Formatters
 {
-    internal class STLogFormatter : Interfaces.ILoggerFormatter
+    internal class STLogFormatter : ILoggerFormatter<MessageEntity>
     {
-        private readonly static ConcurrentDictionary<string, string> _nomeAplicacao = new ConcurrentDictionary<string, string>();
-        private readonly static CultureInfo _cultura = new System.Globalization.CultureInfo("pt-BR");
+        
+        public string Format<T>(string categoryName, LogLevel logLevel, EventId eventId, T state, Exception exception)
+        {
+            try
+            {
+                var logEntity = state as LogEntity;
+                return logEntity.BuildMessage();
+            }
+            catch (Exception)
+            {
+                return state.ToString();
+            }
+        }
 
-        public MessageEntity FormatText<TState>(TState state, Exception exception)
+        public MessageEntity FormatJson<T>(string categoryName, LogLevel logLevel, EventId eventId, T state, Exception exception)
         {
             LogEntity logEntity = null;
             MessageEntity result = new MessageEntity();
@@ -30,86 +42,13 @@ namespace Itau.MX4.Logger.Providers.STLog.Formatters
 
             result.Acao = logEntity.Acao;
             result.Aplicacao = logEntity.ApplicationName;
+            result.Mensagem = Format<LogEntity>(null, logEntity.Level, 0, logEntity, null);
 
-            switch (logEntity.Acao)
-            {
-                case Service.Models.Enums.Acao.Log:
-                    result.Mensagem = MontarLog(logEntity);
-                    break;
-
-                case Service.Models.Enums.Acao.StartService:
-                    result.Mensagem = MontarStartService(logEntity);
-                    break;
-                    
-                case Service.Models.Enums.Acao.EndService:
-                    result.Mensagem = MontarStopService(logEntity);
-                    break;
-            }
-                     
 
             return result;
         }
 
-        private string MontarStopService(LogEntity logEntity) 
-            => $"{logEntity.Ambiente.ServerName} {DateTime.Now:dd/MM/yyyy HH:mm:ss}  {formataNomeAplicacao(logEntity.ApplicationName)} 031I-Parando Servico";
 
-        private string MontarStartService(LogEntity logEntity) 
-            => $"{logEntity.Ambiente.ServerName} {DateTime.Now:dd/MM/yyyy HH:mm:ss}  {formataNomeAplicacao(logEntity.ApplicationName)} 031I-Iniciando Servico";
-
-        private string MontarLog(LogEntity logEntity) 
-            => $"{logEntity.Ambiente.ServerName} {DateTime.Now:dd/MM/yyyy HH:mm:ss}  {formataNomeAplicacao(logEntity.ApplicationName)} {validaCodigo(logEntity.Level)}{tipoLog(logEntity.Level)}-{logEntity.Message}";
-
-        private string formataNomeAplicacao(string nomeAplicacao)
-            => _nomeAplicacao.GetOrAdd(nomeAplicacao.ToLower(), (n) => _cultura.TextInfo.ToTitleCase(nomeAplicacao));
-
-
-        private string tipoLog(LogLevel level)
-        {
-            switch (level)
-            {
-                case Microsoft.Extensions.Logging.LogLevel.Trace:
-                case Microsoft.Extensions.Logging.LogLevel.Debug:
-                case Microsoft.Extensions.Logging.LogLevel.Information:
-                    return "I";
-
-
-                case Microsoft.Extensions.Logging.LogLevel.Error:
-                case Microsoft.Extensions.Logging.LogLevel.Critical:
-                    return "E";
-
-                case Microsoft.Extensions.Logging.LogLevel.Warning:
-                    return "W";
-
-                default:
-                    return "I";
-            }
-        }
-        private string validaCodigo(LogLevel level)
-        {
-            switch (level)
-            {
-                case Microsoft.Extensions.Logging.LogLevel.Trace:
-                    return "002";
-
-                case Microsoft.Extensions.Logging.LogLevel.Debug:
-                    return "003";
-
-                case Microsoft.Extensions.Logging.LogLevel.Information:
-                    return "001";
-
-                case Microsoft.Extensions.Logging.LogLevel.Warning:
-                    return "401";
-
-                case Microsoft.Extensions.Logging.LogLevel.Error:
-                    return "900";
-
-                case Microsoft.Extensions.Logging.LogLevel.Critical:
-                    return "998";
-
-                case Microsoft.Extensions.Logging.LogLevel.None:
-                default:
-                    return "000";
-            }
-        }
+        
     }
 }

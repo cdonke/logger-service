@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Text;
+using Itau.MX4.Logger.Providers.Splunk.Formatters;
+using Itau.MX4.Logger.Service.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Itau.MX4.Logger.Providers.Splunk.Loggers
@@ -18,7 +20,7 @@ namespace Itau.MX4.Logger.Providers.Splunk.Loggers
         /// <param name="categoryName">Category name.</param>
         /// <param name="udpClient">UDP client.</param>
         /// <param name="loggerFormatter">Formatter instance.</param>
-        public UdpLogger(string categoryName, UdpClient udpClient, ILoggerFormatter loggerFormatter)
+        public UdpLogger(string categoryName, UdpClient udpClient, ILoggerFormatter<SplunkJSONEntry> loggerFormatter)
             : base(categoryName, loggerFormatter)
         {
             this.udpClient = udpClient;

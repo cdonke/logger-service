@@ -1,4 +1,6 @@
 ﻿using System;
+using Itau.MX4.Logger.Providers.Splunk.Formatters;
+using Itau.MX4.Logger.Service.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Itau.MX4.Logger.Providers.Splunk.Loggers
@@ -8,7 +10,7 @@ namespace Itau.MX4.Logger.Providers.Splunk.Loggers
     /// </summary>
     public abstract class BaseLogger : ILogger
     {
-        protected readonly ILoggerFormatter loggerFormatter;
+        protected readonly ILoggerFormatter<SplunkJSONEntry> loggerFormatter;
         protected readonly string categoryName;
 
         /// <summary>
@@ -16,7 +18,7 @@ namespace Itau.MX4.Logger.Providers.Splunk.Loggers
         /// </summary>
         /// <param name="categoryName">Category name.</param>
         /// <param name="loggerFormatter">Formatter instance.</param>
-        public BaseLogger(string categoryName, ILoggerFormatter loggerFormatter)
+        public BaseLogger(string categoryName, ILoggerFormatter<SplunkJSONEntry> loggerFormatter)
         {
             this.categoryName = categoryName;
             this.loggerFormatter = loggerFormatter;

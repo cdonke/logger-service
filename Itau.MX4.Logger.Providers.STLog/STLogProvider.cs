@@ -3,6 +3,8 @@ using System.Collections.Concurrent;
 using System.IO;
 using Itau.MX4.Logger.Providers.STLog.FileWriter;
 using Itau.MX4.Logger.Providers.STLog.Formatters;
+using Itau.MX4.Logger.Service.Domain.Interfaces;
+using Itau.MX4.Logger.Service.Domain.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -13,21 +15,15 @@ namespace Itau.MX4.Logger.Providers.STLog
     {
         public readonly STLogOptions _options;
         private readonly Interfaces.IPublisher _publisher;
-        private readonly Interfaces.ILoggerFormatter _formatter;
+        private readonly ILoggerFormatter<MessageEntity> _formatter;
         private readonly ConcurrentDictionary<string, ILogger> _loggers;
 
-        public STLogProvider(Interfaces.ILoggerFormatter formatter, Interfaces.IPublisher publisher, IOptions<STLogOptions> options)
+        public STLogProvider(ILoggerFormatter<MessageEntity> formatter, Interfaces.IPublisher publisher, IOptions<STLogOptions> options)
         {
             _options = options.Value;
             _publisher = publisher;
             _formatter = formatter;
             _loggers = new ConcurrentDictionary<string, ILogger>();
-            
-
-            //if (!Directory.Exists(_options.Caminho))
-            //{
-            //    Directory.CreateDirectory(_options.Caminho);
-            //}
         }
 
         public ILogger CreateLogger(string categoryName)

@@ -78,7 +78,7 @@ namespace Itau.MX4.Logger.Providers.Splunk.Providers
                         debugger.LogInfo(loggerType, "Create request completed successfully.");
                         break;
                     case System.Net.HttpStatusCode.BadRequest:
-                        debugger.LogInfo(loggerType, "Request error. See response body for details.");
+                        debugger.LogInfo(loggerType, "Request error: " + responseMessageTask.Result.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult());
                         break;
                     case System.Net.HttpStatusCode.Unauthorized:
                         debugger.LogInfo(loggerType, "Authentication failure, invalid access credentials.");

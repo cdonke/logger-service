@@ -1,4 +1,5 @@
-﻿using Itau.MX4.Logger.Service.Models;
+﻿using Itau.MX4.Logger.Service.Domain.Models;
+using Itau.MX4.Logger.Service.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;

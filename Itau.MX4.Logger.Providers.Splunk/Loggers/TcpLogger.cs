@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Logging;
 using System.Net.Sockets;
 using System.Text;
+using Itau.MX4.Logger.Service.Domain.Interfaces;
+using Itau.MX4.Logger.Providers.Splunk.Formatters;
 
 namespace Itau.MX4.Logger.Providers.Splunk.Loggers
 {
@@ -18,7 +20,7 @@ namespace Itau.MX4.Logger.Providers.Splunk.Loggers
         /// <param name="categoryName">Category name.</param>
         /// <param name="tcpClient">Tcp client.</param>
         /// <param name="loggerFormatter">Formatter instance.</param>
-        public TcpLogger(string categoryName, TcpClient tcpClient, ILoggerFormatter loggerFormatter)
+        public TcpLogger(string categoryName, TcpClient tcpClient, ILoggerFormatter<SplunkJSONEntry> loggerFormatter)
             : base(categoryName, loggerFormatter)
         {
             this.tcpClient = tcpClient;

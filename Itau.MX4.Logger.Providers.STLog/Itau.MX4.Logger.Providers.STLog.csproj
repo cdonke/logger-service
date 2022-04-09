@@ -5,9 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Itau.MX4.Logger.Service.Models\Itau.MX4.Logger.Service.Models.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="Microsoft.Extensions.Logging" />
     <None Remove="Microsoft.Extensions.Logging.Configuration" />
     <None Remove="FileWriter\" />
@@ -21,5 +18,8 @@
   <ItemGroup>
     <Folder Include="FileWriter\" />
     <Folder Include="Formatters\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Itau.MX4.Logger.Service.Models\Itau.MX4.Logger.Service.Domain.csproj" />
   </ItemGroup>
 </Project>

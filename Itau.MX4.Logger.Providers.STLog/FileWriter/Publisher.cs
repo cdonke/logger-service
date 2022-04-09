@@ -1,9 +1,10 @@
 ﻿using System;
-using Itau.MX4.Logger.Service.Models;
+using Itau.MX4.Logger.Providers.STLog.Interfaces;
+using Itau.MX4.Logger.Service.Domain.Models;
 
 namespace Itau.MX4.Logger.Providers.STLog.FileWriter
 {
-    internal class Publisher: Interfaces.IPublisher
+    internal class Publisher: IPublisher
     {
         public static event LogEntityHandler LogEntityEnqueued;
 

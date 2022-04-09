@@ -8,6 +8,9 @@ using Itau.MX4.Logger.Providers.Splunk.Configurations;
 using Itau.MX4.Logger.Providers.Splunk.Loggers;
 using System.Threading;
 using System.Text.Json;
+using Microsoft.Extensions.Options;
+using Itau.MX4.Logger.Service.Domain.Interfaces;
+using Itau.MX4.Logger.Providers.Splunk.Formatters;
 
 namespace Itau.MX4.Logger.Providers.Splunk.Providers
 {
@@ -17,17 +20,36 @@ namespace Itau.MX4.Logger.Providers.Splunk.Providers
     [ProviderAlias("Splunk")]
     public class SplunkHECJsonLoggerProvider : SplunkHECBaseProvider, ILoggerProvider
     {
+        static readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
+        {
+            AllowTrailingCommas = false,
+            IgnoreNullValues = true,
+            MaxDepth = 5,
+            WriteIndented = false,
+
+        };
+
         readonly BatchManager batchManager;
-        readonly ILoggerFormatter loggerFormatter;
+        readonly ILoggerFormatter<SplunkJSONEntry> loggerFormatter;
         readonly ConcurrentDictionary<string, ILogger> loggers;
         readonly SplunkLogConfiguration loggingConfiguration;
+        
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Splunk.Providers.SplunkHECJsonLoggerProvider"/> class.
         /// </summary>
         /// <param name="configuration">Splunk configuration instance for HEC.</param>
         /// <param name="loggerFormatter">Formatter instance.</param>
-        public SplunkHECJsonLoggerProvider(SplunkLoggerConfiguration configuration, IDebugger debugger = null, ILoggerFormatter loggerFormatter = null)
+        public SplunkHECJsonLoggerProvider(IOptions<SplunkLoggerConfiguration> configuration, IDebugger debugger = null, ILoggerFormatter<SplunkJSONEntry> loggerFormatter = null)
+            : this(configuration.Value, debugger, loggerFormatter)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Splunk.Providers.SplunkHECJsonLoggerProvider"/> class.
+        /// </summary>
+        /// <param name="configuration">Splunk configuration instance for HEC.</param>
+        /// <param name="loggerFormatter">Formatter instance.</param>
+        public SplunkHECJsonLoggerProvider(SplunkLoggerConfiguration configuration, IDebugger debugger = null, ILoggerFormatter<SplunkJSONEntry> loggerFormatter = null)
             : base(configuration, "event", debugger)
         {
             this.loggerFormatter = loggerFormatter;
@@ -67,7 +89,7 @@ namespace Itau.MX4.Logger.Providers.Splunk.Providers
         /// <param name="events">Events batched.</param>
         public void Emit(List<object> events)
         {
-            var jArray = events.Select(evt => JsonSerializer.Serialize(evt));
+            var jArray = events.Select(evt => JsonSerializer.Serialize(evt, _jsonOptions));
             var formatedMessage = string.Join(" ", jArray);
             var stringContent = new StringContent(formatedMessage, Encoding.UTF8, "application/json");
             httpClient.PostAsync(string.Empty, stringContent)

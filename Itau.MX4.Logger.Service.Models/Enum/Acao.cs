@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Itau.MX4.Logger.Service.Models.Enums
+namespace Itau.MX4.Logger.Service.Models.Domain.Enums
 {
     public enum Acao
     {

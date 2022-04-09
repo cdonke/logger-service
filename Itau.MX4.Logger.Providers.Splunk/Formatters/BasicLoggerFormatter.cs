@@ -1,9 +1,10 @@
 ﻿using System;
+using Itau.MX4.Logger.Service.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Itau.MX4.Logger.Providers.Splunk.Formatters
 {
-    public class BasicLoggerFormatter : ILoggerFormatter
+    public class BasicLoggerFormatter : ILoggerFormatter<SplunkJSONEntry>
     {
         public string Format<T>(string categoryName, LogLevel logLevel, EventId eventId, T state, Exception exception)
         {
