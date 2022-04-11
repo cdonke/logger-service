@@ -62,11 +62,11 @@ namespace Itau.MX4.Logger.Service
             }
 
             app.UseRouting();
+            app.UseWebSockets();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<Hubs.LogHub>("/hub/log");
             });
         }
     }

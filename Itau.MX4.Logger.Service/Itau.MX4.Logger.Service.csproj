@@ -10,11 +10,10 @@
     <None Remove="Microsoft.Extensions.Hosting" />
     <None Remove="Microsoft.Extensions.Hosting.WindowsServices" />
     <None Remove="Microsoft.AspNetCore.SignalR" />
-    <None Remove="Hubs\" />
+    <None Remove="Microsoft.AspNetCore.WebSockets" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Hubs\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.23" />
