@@ -1,21 +1,30 @@
 ﻿using System;
 using System.Text.Json;
+using Itau.MX4.Logger.Providers.Splunk.Extensions;
 using Itau.MX4.Logger.Service.Domain.Interfaces;
 using Itau.MX4.Logger.Service.Domain.Models;
 using Microsoft.Extensions.Logging;
 
 namespace Itau.MX4.Logger.Providers.Splunk.Formatters
 {
-    public class LogFormatter: ILoggerFormatter<SplunkJSONEntry>
+
+
+
+    public class LogFormatter : ILoggerFormatter<SplunkJSONEntry>
     {
         public string Format<T>(string categoryName, LogLevel logLevel, EventId eventId, T state, Exception exception)
         {
             try
             {
                 var logEntity = state as LogEntity;
-                return $"{logEntity.LogCode}-{logEntity.Message}";
+
+                if (logEntity == null)
+                    throw new Exception();
+
+                var eventObj = new InternalModels.MessageEntity(logEntity);
+                return JsonSerializer.Serialize(eventObj);
             }
-            catch (Exception)
+            catch
             {
                 return state.ToString();
             }
@@ -24,11 +33,15 @@ namespace Itau.MX4.Logger.Providers.Splunk.Formatters
         public SplunkJSONEntry FormatJson<T>(string categoryName, LogLevel logLevel, EventId eventId, T state, Exception exception)
         {
             LogEntity logEntity = ParseState(state);
-            var evt = Format<LogEntity>(categoryName, logLevel, eventId, logEntity, exception);
+            var evt = Format(categoryName, logLevel, eventId, logEntity, exception);
 
-            var epoch = (ulong)(new DateTimeOffset(logEntity.Date)).ToUnixTimeSeconds();
-            return new SplunkJSONEntry(evt, epoch, logEntity.Ambiente.ServerName,
-                logEntity.ApplicationName);
+            var epoch = logEntity.Date.ToUnixTimeSeconds();
+            return new SplunkJSONEntry(
+                evt,
+                epoch,
+                logEntity.Ambiente.ServerName,
+                logEntity.ApplicationName
+            );
         }
 
 
@@ -39,7 +52,7 @@ namespace Itau.MX4.Logger.Providers.Splunk.Formatters
             {
                 logEntity = JsonSerializer.Deserialize<LogEntity>(state.ToString());
             }
-            catch (Exception ex)
+            catch
             {
                 logEntity = new LogEntity();
                 logEntity.Message = state.ToString();
