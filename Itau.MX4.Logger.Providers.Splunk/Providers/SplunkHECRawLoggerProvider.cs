@@ -6,7 +6,7 @@ using System.Net.Http;
 using Microsoft.Extensions.Logging;
 using Itau.MX4.Logger.Providers.Splunk.Configurations;
 using Itau.MX4.Logger.Providers.Splunk.Loggers;
-using Itau.MX4.Logger.Service.Domain.Interfaces;
+using Itau.MX4.Logger.Domain.Interfaces;
 using Itau.MX4.Logger.Providers.Splunk.Formatters;
 
 namespace Itau.MX4.Logger.Providers.Splunk.Providers

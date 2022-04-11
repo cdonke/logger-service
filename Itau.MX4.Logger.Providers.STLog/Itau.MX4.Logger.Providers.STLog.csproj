@@ -22,6 +22,6 @@
     <Folder Include="InternalModels\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Itau.MX4.Logger.Service.Models\Itau.MX4.Logger.Service.Domain.csproj" />
+    <ProjectReference Include="..\Itau.MX4.Logger.Domain\Itau.MX4.Logger.Domain.csproj" />
   </ItemGroup>
 </Project>

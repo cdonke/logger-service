@@ -1,5 +1,5 @@
 ﻿using Itau.MX4.Logger.Providers.STLog.InternalModels;
-using Itau.MX4.Logger.Service.Domain.Interfaces;
+using Itau.MX4.Logger.Domain.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;

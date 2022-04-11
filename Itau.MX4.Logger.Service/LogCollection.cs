@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Itau.MX4.Logger.Service.Domain.Models;
+using Itau.MX4.Logger.Domain.Models;
 using Microsoft.Extensions.Logging;
 
 namespace Itau.MX4.Logger.Service

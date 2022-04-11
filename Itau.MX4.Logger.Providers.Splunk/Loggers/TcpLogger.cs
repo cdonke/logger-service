@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System.Net.Sockets;
 using System.Text;
-using Itau.MX4.Logger.Service.Domain.Interfaces;
+using Itau.MX4.Logger.Domain.Interfaces;
 using Itau.MX4.Logger.Providers.Splunk.Formatters;
 
 namespace Itau.MX4.Logger.Providers.Splunk.Loggers

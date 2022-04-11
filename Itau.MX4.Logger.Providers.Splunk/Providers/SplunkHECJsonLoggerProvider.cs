@@ -9,7 +9,7 @@ using Itau.MX4.Logger.Providers.Splunk.Loggers;
 using System.Threading;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
-using Itau.MX4.Logger.Service.Domain.Interfaces;
+using Itau.MX4.Logger.Domain.Interfaces;
 using Itau.MX4.Logger.Providers.Splunk.Formatters;
 
 namespace Itau.MX4.Logger.Providers.Splunk.Providers

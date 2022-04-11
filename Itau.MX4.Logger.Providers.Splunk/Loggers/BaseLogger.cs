@@ -1,6 +1,6 @@
 ﻿using System;
 using Itau.MX4.Logger.Providers.Splunk.Formatters;
-using Itau.MX4.Logger.Service.Domain.Interfaces;
+using Itau.MX4.Logger.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Itau.MX4.Logger.Providers.Splunk.Loggers

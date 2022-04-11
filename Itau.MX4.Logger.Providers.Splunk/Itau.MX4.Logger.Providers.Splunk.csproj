@@ -18,9 +18,9 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="3.1.23" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Itau.MX4.Logger.Service.Models\Itau.MX4.Logger.Service.Domain.csproj" />
+    <Folder Include="InternalModels\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="InternalModels\" />
+    <ProjectReference Include="..\Itau.MX4.Logger.Domain\Itau.MX4.Logger.Domain.csproj" />
   </ItemGroup>
 </Project>

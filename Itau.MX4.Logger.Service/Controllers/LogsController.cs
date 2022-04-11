@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Unicode;
 using System.Threading;
 using System.Threading.Tasks;
-using Itau.MX4.Logger.Service.Domain.Models;
+using Itau.MX4.Logger.Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

@@ -21,13 +21,13 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Itau.MX4.Logger.Service.Models\Itau.MX4.Logger.Service.Models.csproj">
+    <ProjectReference Include="..\Itau.MX4.Logger.Providers.Splunk\Itau.MX4.Logger.Providers.Splunk.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\Itau.MX4.Logger.Service.Models\Itau.MX4.Logger.Domain.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
     <ProjectReference Include="..\Itau.MX4.Logger.Providers.STLog\Itau.MX4.Logger.Providers.STLog.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
-    <ProjectReference Include="..\Itau.MX4.Logger.Providers.Splunk\Itau.MX4.Logger.Providers.Splunk.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
