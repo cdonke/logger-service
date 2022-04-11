@@ -1,8 +1,7 @@
 ﻿using System;
+using Itau.MX4.Logger.Providers.STLog.InternalModels;
 using Itau.MX4.Logger.Service.Domain.Interfaces;
-using Itau.MX4.Logger.Service.Domain.Models;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Itau.MX4.Logger.Providers.STLog
 {

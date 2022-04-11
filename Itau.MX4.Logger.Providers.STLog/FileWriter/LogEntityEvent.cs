@@ -1,6 +1,5 @@
 ﻿using System;
-using Itau.MX4.Logger.Service.Domain.Models;
-using Itau.MX4.Logger.Service.Models;
+using Itau.MX4.Logger.Providers.STLog.InternalModels;
 
 namespace Itau.MX4.Logger.Providers.STLog.FileWriter
 {

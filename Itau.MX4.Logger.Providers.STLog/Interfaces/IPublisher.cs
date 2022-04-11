@@ -1,8 +1,4 @@
-﻿using Itau.MX4.Logger.Service.Domain.Models;
-using Itau.MX4.Logger.Service.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Itau.MX4.Logger.Providers.STLog.InternalModels;
 
 namespace Itau.MX4.Logger.Providers.STLog.Interfaces
 {

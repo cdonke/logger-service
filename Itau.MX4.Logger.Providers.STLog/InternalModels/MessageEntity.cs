@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Itau.MX4.Logger.Service.Domain.Models
+namespace Itau.MX4.Logger.Providers.STLog.InternalModels
 {
     public class MessageEntity
     {

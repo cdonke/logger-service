@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 using System.Text.Json;
-using Itau.MX4.Logger.Providers.STLog.Interfaces;
+using Itau.MX4.Logger.Providers.STLog.InternalModels;
 using Itau.MX4.Logger.Service.Domain.Interfaces;
 using Itau.MX4.Logger.Service.Domain.Models;
 using Microsoft.Extensions.Logging;

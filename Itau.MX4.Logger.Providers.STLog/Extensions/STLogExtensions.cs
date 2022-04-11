@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Itau.MX4.Logger.Providers.STLog.InternalModels;
 using Itau.MX4.Logger.Service.Domain.Interfaces;
-using Itau.MX4.Logger.Service.Domain.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
-using Microsoft.Extensions.Options;
 
 namespace Itau.MX4.Logger.Providers.STLog
 {

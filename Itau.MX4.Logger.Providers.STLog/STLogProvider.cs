@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.IO;
-using Itau.MX4.Logger.Providers.STLog.FileWriter;
-using Itau.MX4.Logger.Providers.STLog.Formatters;
+﻿using System.Collections.Concurrent;
+using Itau.MX4.Logger.Providers.STLog.InternalModels;
 using Itau.MX4.Logger.Service.Domain.Interfaces;
-using Itau.MX4.Logger.Service.Domain.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
