@@ -2,7 +2,7 @@
 @url=http://localhost:5000/api/logs
 
 
-POST {{url}}/StartService/{{robo}}
+POST {{url}}/{{robo}}/Start
 Content-Type: application/json
 
 {
@@ -11,7 +11,7 @@ Content-Type: application/json
 }
 ###
 
-POST {{url}}/StopService/{{robo}}
+POST {{url}}/{{robo}}/Stop
 Content-Type: application/json
 
 {
@@ -19,6 +19,17 @@ Content-Type: application/json
   "Date": "{{$datetime iso8601 -3}}"
 }
 ###
+
+POST {{url}}/{{robo}}/Error
+Content-Type: application/json
+
+{
+  "Message": "teste",
+  "Date": "{{$datetime iso8601 -3}}"
+}
+
+###
+
 
 POST {{url}}/{{robo}}/Information
 Content-Type: application/json

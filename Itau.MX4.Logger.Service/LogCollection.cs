@@ -48,5 +48,11 @@ namespace Itau.MX4.Logger.Service
         {
             _blockingCollection.Add(message);
         }
+
+        public void Enqueue(string message)
+        {
+            var obj = JsonSerializer.Deserialize<LogEntity>(message);
+            _blockingCollection.Add(obj);
+        }
     }
 }
